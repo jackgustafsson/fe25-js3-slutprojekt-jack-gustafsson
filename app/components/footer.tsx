@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <address>Jack Gustafsson</address>
+    <address>Jack Gustafsson FE25</address>
   )
 }
 

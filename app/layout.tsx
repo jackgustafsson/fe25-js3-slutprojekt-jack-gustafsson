@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <header className="border-2 border-red-500 text-center text-2xl">
+        <header className="bg-black text-white text-center text-2xl font-bold p-4">
           <Navbar />
         </header>
 
@@ -34,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         
-        <footer className="border-2 text-center">
+        <footer className="text-center mt-5">
           <Footer />
         </footer>
       </body>
