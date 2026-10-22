@@ -14,6 +14,7 @@ export type DetailedCountry = {
     capital: string;
     languages: Langugage[];
     subregion: string;
+    alpha2Code: string;
     alpha3Code: string;
     currencies: Currency[];
     nativeName: string;
@@ -27,8 +28,6 @@ type Flag = {
 
 type Langugage = {
     name: string;
-    iso639_1: string;
-    iso639_2: string;
     nativeName: string;
 }
 
