@@ -1,6 +1,11 @@
 const Navbar = () => {
   return (
-    <h1>Reseapp</h1>
+    <>
+      <nav>
+        <h1>Reseapp</h1>
+      </nav>
+    </>
+    
   )
 }
 

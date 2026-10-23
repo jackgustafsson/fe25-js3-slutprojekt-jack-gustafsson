@@ -7,11 +7,9 @@ export type Weather = {
     }
 }
 
-export type Capital = {
-    results: Results[];
-}
-
-type Results = {
-    latitude: number;
-    longitude: number;
+export type CapitalCoordinates = {
+    results: {
+        latitude: number;
+        longitude: number;
+    }[];
 }

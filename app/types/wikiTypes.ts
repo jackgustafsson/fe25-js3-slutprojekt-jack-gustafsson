@@ -1,22 +1,18 @@
 export type Wiki = {
     title: string;
-    thumbnail: Thumbnail;
+    thumbnail: {
+        source: string;
+        width: number;
+        height: number;
+    };
     extract: string;
-    content_urls: Content_Url;
-}
+    content_urls: {
+        desktop: {
+            page: string;
+        }
 
-type Thumbnail = {
-    source: string;
-    width: number;
-    height: number;
-}
-
-type Content_Url = {
-    desktop: {
-        page: string;
-    }
-
-    mobile: {
-        page: string;
-    }
+        mobile: {
+            page: string;
+        }
+    };
 }

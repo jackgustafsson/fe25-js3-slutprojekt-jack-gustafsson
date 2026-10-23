@@ -3,36 +3,32 @@ export type Country = {
     alpha3Code: string;
     region: string;
     capital: string;
-    flags: Flag;
+    flags: {
+        png: string;
+        svg: string;
+    };
 };
 
 export type DetailedCountry = {
     name: string;
-    flags: Flag;
-    latlng: number[];
+    flags: {
+        png: string;
+        svg: string;
+    };
     region: string;
     capital: string;
-    languages: Langugage[];
+    languages: {
+        name: string;
+        nativeName: string;
+    }[];
     subregion: string;
     alpha2Code: string;
     alpha3Code: string;
-    currencies: Currency[];
+    currencies: {
+        code: string;
+        name: string;
+        symbol: string;
+    }[];
     nativeName: string;
     population: number;
-}
-
-type Flag = {
-    png: string;
-    svg: string;
-}
-
-type Langugage = {
-    name: string;
-    nativeName: string;
-}
-
-type Currency = {
-    code: string;
-    name: string;
-    symbol: string;
 }
