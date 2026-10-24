@@ -1,15 +1,13 @@
 import { Country } from "../types/countryTypes";
 import Link from "next/link";
+import { fetchData } from "../utils/fetchData";
 
 async function CountryList() {
 
-    const res = await fetch("https://countries.dev/countries?fields=name,alpha3Code,region,capital,flags");
+    const countriesUrl = "https://countries.dev/countries?fields=name,alpha3Code,region,capital,flags";
+    const countriesError = "Kunde inte hämta länder";
 
-    if (!res.ok) {
-        throw new Error("Kunde inte hämta länder");
-    }
-
-    const countries: Country[] = await res.json();
+    const countries = await fetchData<Country[]>(countriesUrl, countriesError);
 
     return (
         <ol className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">

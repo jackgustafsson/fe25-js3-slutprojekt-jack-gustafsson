@@ -1,17 +1,14 @@
 import { DetailedCountry } from "@/app/types/countryTypes"
 import { Wiki } from "@/app/types/wikiTypes";
 import RetryMessage from "@/app/components/retryMessage";
+import { fetchData } from "@/app/utils/fetchData";
 
 async function CountryWiki({ country }: { country: DetailedCountry }) {
+    const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(country.name)}`;
+    const wikiError = "Kunde inte hämta Wiki-information";
 
     try {
-        const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(country.name)}`);
-
-        if (!res.ok) {
-            throw new Error("Kunde inte hämta Wiki-information");
-        }
-
-        const wiki: Wiki = await res.json();
+        const wiki = await fetchData<Wiki>(wikiUrl, wikiError);
 
         return (
             <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
