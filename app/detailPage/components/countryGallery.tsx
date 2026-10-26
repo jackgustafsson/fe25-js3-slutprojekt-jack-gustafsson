@@ -1,11 +1,10 @@
-
 import { DetailedCountry } from "@/app/types/countryTypes";
 import { UnsplashResponse } from "@/app/types/galleryTypes";
 import { fetchData } from "@/app/utils/fetchData";
 
 async function CountryGallery({ country }: { country: DetailedCountry }) {
     const accessKey = process.env.UNSPLASH_ACCESS_KEY;
-    const url = `https://api.unsplash.com/search/photos?query=${country.name}&per_page=3&orientation=landscape`;
+    const url = `https://api.unsplash.com/search/photos?query=${country.names.common}&per_page=3&orientation=landscape`;
     const photosError = "Unsplash kunde inte hämta bilderna.";
     const options = {
         headers: {
@@ -26,11 +25,11 @@ async function CountryGallery({ country }: { country: DetailedCountry }) {
 
         return (
             <section className="space-y-4">
-                <h2 className="text-2xl font-bold">Bilder från {country.name}</h2>
+                <h2 className="text-2xl font-bold">Bilder från {country.names.common}</h2>
 
                 <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {photos.map((photo) => {
-                        const altText = photo.alt_description ?? photo.description ?? `Bild från ${country.name}`;
+                        const altText = photo.alt_description ?? photo.description ?? `Bild från ${country.names.common}`;
                         const photographerUrl = `${photo.user.links.html}?utm_source=country_project&utm_medium=referral`;
                         const photoUrl = `${photo.links.html}?utm_source=country_project&utm_medium=referral`;
 

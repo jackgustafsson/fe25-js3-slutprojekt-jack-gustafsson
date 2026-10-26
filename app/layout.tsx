@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main>
           {children}
         </main>
-        
+
         <footer className="text-center mt-5">
           <Footer />
         </footer>

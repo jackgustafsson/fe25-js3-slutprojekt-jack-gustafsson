@@ -4,7 +4,7 @@ import RetryMessage from "@/app/components/retryMessage";
 import { fetchData } from "@/app/utils/fetchData";
 
 async function CountryWiki({ country }: { country: DetailedCountry }) {
-    const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(country.name)}`;
+    const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(country.names.common)}`;
     const wikiError = "Kunde inte hämta Wiki-information";
 
     try {

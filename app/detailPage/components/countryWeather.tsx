@@ -1,19 +1,16 @@
 import { DetailedCountry } from "@/app/types/countryTypes"
-import { Weather, CapitalCoordinates } from "@/app/types/weatherTypes";
+import { Weather } from "@/app/types/weatherTypes";
 import RetryMessage from "@/app/components/retryMessage";
 import { fetchData } from "@/app/utils/fetchData";
 
 async function CountryWeather({ country }: { country: DetailedCountry }) {
-    const capitalUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${country.capital}&countryCode=${country.alpha2Code}&count=1`
-    const capitalError = "Kunde inte hämta huvudstadens koordinater";
-    const weatherError = "Kunde inte hämta vädret";
 
     try {
-        const capitalData = await fetchData<CapitalCoordinates>(capitalUrl, capitalError);
-        const latitude = capitalData.results[0].latitude;
-        const longitude = capitalData.results[0].longitude;
+        const latitude = country.capitals[0].coordinates.lat;
+        const longitude = country.capitals[0].coordinates.lng;
 
         const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m&forecast_days=1`;
+        const weatherError = "Kunde inte hämta vädret";
 
         const weather = await fetchData<Weather>(weatherUrl, weatherError);
         const code = weather.current.weather_code;
@@ -38,7 +35,7 @@ async function CountryWeather({ country }: { country: DetailedCountry }) {
 
         return (
             <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6 lg:p-8">
-                <h2 className="mb-5 border-b border-gray-200 pb-3 text-xl font-bold text-gray-900 sm:text-2xl">Vädret i {country.capital}</h2>
+                <h2 className="mb-5 border-b border-gray-200 pb-3 text-xl font-bold text-gray-900 sm:text-2xl">Vädret i {country.capitals[0].name}</h2>
 
                 <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <section className="rounded-xl bg-blue-50 p-4">

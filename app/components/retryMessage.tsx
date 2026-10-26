@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function RetryMessage({message}: {message: string}) {
+export default function RetryMessage({ message }: { message: string }) {
   const router = useRouter();
 
   return (

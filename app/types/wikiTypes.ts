@@ -10,9 +10,5 @@ export type Wiki = {
         desktop: {
             page: string;
         }
-
-        mobile: {
-            page: string;
-        }
     };
 }

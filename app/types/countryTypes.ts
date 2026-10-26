@@ -1,36 +1,49 @@
 export type Country = {
-    name: string;
-    alpha3Code: string;
+    names: { common: string };
+    codes: { alpha_3: string };
     region: string;
-    capital: string;
-    flags: {
-        png: string;
-        svg: string;
-    };
+    capitals: { name: string }[];
+    flag: { url_svg: string };
     population: number;
-    area: number;
+    area: { kilometers: number };
 };
 
+export type RestCountriesResponse = {
+    data: {
+        objects: Country[];
+        meta: {
+            more: boolean;
+        }
+    }
+}
+
 export type DetailedCountry = {
-    name: string;
-    flags: {
-        png: string;
-        svg: string;
+    names: {
+        common: string;
+        official: string;
     };
+    flag: { url_svg: string };
     region: string;
-    capital: string;
-    languages: {
+    capitals: {
         name: string;
-        nativeName: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        }
     }[];
+    languages: { name: string }[];
     subregion: string;
-    alpha2Code: string;
-    alpha3Code: string;
-    currencies: {
-        code: string;
-        name: string;
-        symbol: string;
-    }[];
-    nativeName: string;
+    codes: {
+        alpha_2: string;
+        alpha_3: string
+    };
+    currencies: { name: string; }[];
     population: number;
 }
+
+
+export type DetailedCountryResponse = {
+    data: {
+        objects: DetailedCountry[];
+    };
+};

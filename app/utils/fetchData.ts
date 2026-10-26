@@ -1,4 +1,3 @@
-
 export async function fetchData<T>(
     url: string,
     errorMessage: string,

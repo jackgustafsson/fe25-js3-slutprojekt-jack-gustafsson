@@ -48,7 +48,7 @@ function CountryPagination({ countries }: { countries: Country[] }) {
 
     const filteredCountries = countries.filter((country) => {
         const matchesRegion = selectedRegion === "All" || (country.region === "Americas" ? "America" : country.region) === selectedRegion;
-        const matchesSearch = country.name.toLowerCase().includes(searchTerm.trim().toLowerCase());
+        const matchesSearch = country.names.common.toLowerCase().includes(searchTerm.trim().toLowerCase());
 
         return matchesRegion && matchesSearch;
     });
@@ -57,11 +57,11 @@ function CountryPagination({ countries }: { countries: Country[] }) {
         let comparison = 0;
 
         if (sortBy === "name") {
-            comparison = a.name.localeCompare(b.name);
+            comparison = a.names.common.localeCompare(b.names.common);
         } else if (sortBy === "population") {
             comparison = (a.population ?? 0) - (b.population ?? 0);
         } else if (sortBy === "area") {
-            comparison = (a.area ?? 0) - (b.area ?? 0);
+            comparison = (a.area.kilometers ?? 0) - (b.area.kilometers ?? 0);
         }
 
         return sortDirection === "asc" ? comparison : -comparison;
@@ -109,17 +109,21 @@ function CountryPagination({ countries }: { countries: Country[] }) {
             {currentCountries.length > 0 ? (
                 <ol className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
                     {currentCountries.map((country) => (
-                        <li key={country.alpha3Code} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <li key={country.codes.alpha_3 || country.names.common} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg">
                             <section className="flex h-40 items-center justify-center bg-gray-100 p-4">
-                                <img src={country.flags.svg} alt={`Flaggan för ${country.name}`} className="max-h-full max-w-full object-contain" />
+                                {country.flag.url_svg ? (
+                                    <img src={country.flag.url_svg} alt={`Flaggan för ${country.names.common}`} className="max-h-full max-w-full object-contain" />
+                                ) : (
+                                    <p>Ingen flagga tillgänglig</p>
+                                )}
                             </section>
                             <section className="space-y-3 p-5">
-                                <h2 className="border-b border-gray-200 pb-2 text-xl font-bold text-gray-800">{country.name}</h2>
+                                <h2 className="border-b border-gray-200 pb-2 text-xl font-bold text-gray-800">{country.names.common}</h2>
                                 <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Region:</span>{" "} {country.region || "Okänd"}</p>
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Huvudstad:</span>{" "}  {country.capital || "Okänd"}</p>
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Huvudstad:</span>{" "}  {country.capitals?.[0]?.name || "Okänd"}</p>
                                 <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Befolkning:</span>{" "} {country.population != null ? country.population.toLocaleString("sv-SE") : "Okänd"}</p>
-                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Yta:</span>{" "}  {country.area != null ? country.area.toLocaleString("sv-SE") : "Okänd"}</p>
-                                <Link href={`/detailPage/${country.alpha3Code}`} className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Mer info</Link>
+                                <p className="text-sm text-gray-600"><span className="font-semibold text-gray-800">Yta:</span>{" "}  {country.area.kilometers != null ? country.area.kilometers.toLocaleString("sv-SE") : "Okänd"}</p>
+                                <Link href={`/detailPage/${country.codes.alpha_3}`} className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Mer info</Link>
                             </section>
                         </li>
                     ))}
