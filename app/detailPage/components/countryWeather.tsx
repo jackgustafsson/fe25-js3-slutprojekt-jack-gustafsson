@@ -38,7 +38,7 @@ async function CountryWeather({ country }: { country: DetailedCountry }) {
 
         return (
             <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6 lg:p-8">
-                <h2 className="mb-5 border-b border-gray-200 pb-3 text-xl font-bold text-gray-900 sm:text-2xl">Vädret i {country.capital} i {country.name}</h2>
+                <h2 className="mb-5 border-b border-gray-200 pb-3 text-xl font-bold text-gray-900 sm:text-2xl">Vädret i {country.capital}</h2>
 
                 <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <section className="rounded-xl bg-blue-50 p-4">

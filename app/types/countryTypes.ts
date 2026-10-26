@@ -7,6 +7,8 @@ export type Country = {
         png: string;
         svg: string;
     };
+    population: number;
+    area: number;
 };
 
 export type DetailedCountry = {
