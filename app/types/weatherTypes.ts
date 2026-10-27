@@ -6,10 +6,3 @@ export type Weather = {
         wind_speed_10m: number;
     }
 }
-
-export type CapitalCoordinates = {
-    results: {
-        latitude: number;
-        longitude: number;
-    }[];
-}

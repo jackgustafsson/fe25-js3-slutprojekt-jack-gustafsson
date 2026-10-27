@@ -6,8 +6,24 @@ import { fetchData } from "@/app/utils/fetchData";
 async function CountryWeather({ country }: { country: DetailedCountry }) {
 
     try {
-        const latitude = country.capitals[0].coordinates.lat;
-        const longitude = country.capitals[0].coordinates.lng;
+        const capital = country.capitals?.[0];
+
+        if (!capital?.coordinates) {
+            return (
+                <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6 lg:p-8">
+                    <h2 className="mb-3 text-xl font-bold text-gray-900 sm:text-2xl">
+                        Väder
+                    </h2>
+                    <p className="text-gray-600">
+                        Det finns inga tillgängliga koordinater för huvudstaden,
+                        så vädret kan inte hämtas.
+                    </p>
+                </section>
+            );
+        }
+
+        const latitude = capital.coordinates.lat;
+        const longitude = capital.coordinates.lng;
 
         const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m&forecast_days=1`;
         const weatherError = "Kunde inte hämta vädret";
@@ -35,7 +51,7 @@ async function CountryWeather({ country }: { country: DetailedCountry }) {
 
         return (
             <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-6 lg:p-8">
-                <h2 className="mb-5 border-b border-gray-200 pb-3 text-xl font-bold text-gray-900 sm:text-2xl">Vädret i {country.capitals[0].name}</h2>
+                <h2 className="mb-5 border-b border-gray-200 pb-3 text-xl font-bold text-gray-900 sm:text-2xl">Vädret i {capital.name}</h2>
 
                 <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <section className="rounded-xl bg-blue-50 p-4">
