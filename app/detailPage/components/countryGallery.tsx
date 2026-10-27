@@ -9,8 +9,7 @@ async function CountryGallery({ country }: { country: DetailedCountry }) {
     const options = {
         headers: {
             Authorization: `Client-ID ${accessKey}`
-        },
-        next: { revalidate: 3600 }
+        }
     }
 
     try {

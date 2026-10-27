@@ -1,11 +1,8 @@
 export async function fetchData<T>(
     url: string,
     errorMessage: string,
-    options?: RequestInit & {
-        next?: {
-            revalidate?: number | false;
-        }
-    }): Promise<T> {
+    options?: RequestInit
+): Promise<T> {
 
     try {
         const res = await fetch(url, options);
