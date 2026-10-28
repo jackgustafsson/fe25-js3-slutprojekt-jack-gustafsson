@@ -1,3 +1,4 @@
+import RetryMessage from "@/app/components/retryMessage";
 import { DetailedCountry } from "@/app/types/countryTypes";
 import { UnsplashResponse } from "@/app/types/galleryTypes";
 import { fetchData } from "@/app/utils/fetchData";
@@ -50,10 +51,10 @@ async function CountryGallery({ country }: { country: DetailedCountry }) {
                 </p>
             </section>
         );
-    } catch {
+    } catch (error) {
 
         return (
-            <p>Bildgalleriet kunde inte laddas just nu.</p>
+            <RetryMessage message={error instanceof Error ? error.message : "Ett okänt fel uppstod."} />
         );
     }
 }

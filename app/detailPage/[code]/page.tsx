@@ -27,6 +27,10 @@ async function DetailedPage({ params }: { params: Promise<{ code: string }> }) {
   const response: DetailedCountryResponse = await res.json();
   const country = response.data.objects[0];
 
+  if (!country) {
+    notFound();
+  }
+
   return (
     <section className="mx-auto max-w-5xl space-y-6 p-4 sm:space-y-8 sm:p-6 lg:p-8">
       <CountryFacts country={country} />
